@@ -5,6 +5,7 @@ import { Ai } from '@cloudflare/ai'
 type Bindings = {
     AI: any
     VERCEL_URL: string
+    LOCAL_URL: string
 }
 
 type Answer = {
@@ -15,8 +16,8 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use('/api/*', async (c, next) => {
     const corsMiddleware = cors({
-        origin: ['http://localhost:3000',  c.env.VERCEL_URL || ''],
-        allowHeaders: ['X-Custom-Header', 'Upgrade-Insecure-Requests'],
+        origin: [c.env.LOCAL_URL || '',  c.env.VERCEL_URL || ''],
+        allowHeaders: ['Content-Type'],
         allowMethods: ['POST', 'GET', 'OPTIONS'],
         exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
         credentials: true,
