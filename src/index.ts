@@ -1,6 +1,6 @@
+import { Ai } from '@cloudflare/ai'
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
-import { Ai } from '@cloudflare/ai'
 
 type Bindings = {
     AI: any
@@ -36,10 +36,9 @@ app.all('/api/ai', async (c): Promise<Response> => {
     });
 
     return c.json({ response : answer.response })
-    // return c.json({ success: true })
 })
 
-app.all('/api2/abc', (c) => {
+app.all('/api/hc', (c) => {
     return c.json({ success: true })
 })
 
