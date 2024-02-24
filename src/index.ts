@@ -4,8 +4,8 @@ import { cors } from 'hono/cors'
 
 type Bindings = {
     AI: any
-    VERCEL_URL: string
     LOCAL_URL: string
+    PRODUCTION_FRONT_URL: string
 }
 
 type Answer = {
@@ -16,7 +16,7 @@ const app = new Hono<{ Bindings: Bindings }>()
 
 app.use('/api/*', async (c, next) => {
     const corsMiddleware = cors({
-        origin: [c.env.LOCAL_URL || '',  c.env.VERCEL_URL || ''],
+        origin: [c.env.LOCAL_URL || '',  c.env.PRODUCTION_FRONT_URL || ''],
         allowHeaders: ['Content-Type'],
         allowMethods: ['POST', 'GET', 'OPTIONS'],
         exposeHeaders: ['Content-Length', 'X-Kuma-Revision'],
